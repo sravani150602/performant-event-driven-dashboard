@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Event-stream orchestration API for Pulseboard
+Resources:
+  EventApi:
+    Type: AWS::Serverless::HttpApi
+  EventFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs22.x
+      Handler: handler.handler
+      CodeUri: lambda/
+      MemorySize: 512
+      Timeout: 10
+      Architectures: [arm64]
+      Events:
+        EventsEndpoint:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref EventApi
+            Path: /events
+            Method: GET
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        EntryPoints: [handler.ts]
+        Minify: true
+        Target: es2022
+Outputs:
+  EventApiUrl:
+    Value: !Sub https://${EventApi}.execute-api.${AWS::Region}.${AWS::URLSuffix}/events
