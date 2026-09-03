@@ -177,7 +177,7 @@ docs/               benchmark scope and supporting documentation
 .github/workflows/  quality, E2E, and container CI jobs
 ```
 
-## Resume-ready summary
+## summary
 
 - Built a consumer-facing React and TypeScript dashboard consuming event streams through an AWS Lambda orchestration boundary, validating sub-300 ms p95 processing for 15,000 simulated events with idempotent client-side reconciliation.
 - Used AI-assisted development for reviewed test ideation and refactoring; implemented Playwright journeys, WCAG A/AA analysis, visual snapshots, and performance budgets enforced before merge.
